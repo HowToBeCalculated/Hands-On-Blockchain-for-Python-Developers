@@ -15,6 +15,8 @@ DERIVE_PUBLIC_KEY_FROM_PRIVATE_KEY = True
 ## use keys/message I created myself
 PRIVATE_KEY_FILE = "ryankey.pem"
 PUBLIC_KEY_FILE = "ryankey.pub"
+
+## different messages will have different signatures
 MESSAGE = b"Ryan likes Pokemon"
 
 ## get the private key
@@ -34,7 +36,8 @@ else:
             backend=default_backend()
         )
 
-## define the signature using the private key
+## define the signature using the private key. If either the message or signature don't match
+## from the public key of nelson, then it's invalid
 signature = private_key.sign(
     MESSAGE,
     padding.PSS(
